@@ -1,0 +1,2 @@
+first get the working area of minesweeper.exe
+try to interpret the gui grid into an internal programatic grid
