@@ -41,6 +41,18 @@ This is just a wrapper class with some helper overloadings, representing a singl
 * Checking the entire grid for potential moves.
 
 ## 3. Solver Class
-
+* This is where anything related to IO is done
+* This includes:- Scanning each cell, Scanning the entire grid, Reading cell contents, Clicking on cells, Flagging bomb cells
+* This is the slowest class ever, the bottle neck happens here
+* Keeps track of minisicule details like the starting pixel of the first cell and scans the entire grid via Image Processing
+* Taking Actions is done here.
+* The available actions are: Flagging a cell, Popping a cell, Randomly selecting a cell during ambiguities.
 
 ## 4. Solver.py (the main file)
+This is just the final file where we parse arguments.
+This file contains the main loop.
+As long as the game is not won or lost:-
+1) Scan the entire grid
+2) Register the scanned grid into a software grid (or update the existing software grid)
+3) Find the next actions
+4) Do the actions
