@@ -61,6 +61,17 @@ As long as the game is not won or lost:-
 3) Find the next actions
 4) Do the actions
 
+## Todo Work
+A lot of times, the algorithm just gets stuck in an ambiguous situation and the only way out is to select a random cell and pop it.
+
+A good approach is to search for some recurring patterns like:-
+
+![image](https://github.com/user-attachments/assets/996b825b-b702-4d3c-b61c-19d9d680d8f9)
+![image](https://github.com/user-attachments/assets/90bd4cdd-2bca-413f-898e-2c1f7dfb10ea)
+![image](https://github.com/user-attachments/assets/ca69c3db-0b4f-4ea0-815f-18d4856416c4)
+![image](https://github.com/user-attachments/assets/3c264500-fae8-4261-b2c5-5f5acf93452c)
+
+Those patterns can sometimes help break an ambiguous situation, they can be implemented to further reduce the number of randomly selected cells.
 
 ## Suggestions and Improvements 😇
 This repo is open for suggestions and improvements, if you have any comment, suggestion, critic, update or anything you want to reach this repo, feel free to request a pull or contact me directly via my email: ayman.mohamed00@eng-st.cu.edu.eg
