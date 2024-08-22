@@ -1,6 +1,7 @@
 # Minesweeper-Solver
 
-big logo here
+![logo](https://github.com/user-attachments/assets/ba280c8a-6353-4743-a0be-7dc3aea7a167)
+
 
 ## An attempt to automate the gameplay of the famous game, Minesweeper. using pyautogui and a bunch of algorithms.
 
