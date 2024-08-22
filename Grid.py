@@ -231,13 +231,12 @@ class SolverObj:
 
 
 
-
-    
-
-    def CheckPlayground(self, grid_obj:GridObj) -> list:
+    def CheckPlayground2(self, grid_obj:GridObj)->list:
         pyautogui.moveTo(self.first_cell_x, self.first_cell_y)
+        img_1 = pyautogui.screenshot(region=(int(self.first_cell_x-8), int(self.first_cell_y-8), int(self.columns*16), int(self.rows*16)))
 
-        imaginary_cursor_x, imaginary_cursor_y = int(self.first_cell_x), int(self.first_cell_y)
+        imaginary_cursor_x = self.first_cell_x
+        imaginary_cursor_y = self.first_cell_y
 
         big_string = ""
 
@@ -257,7 +256,7 @@ class SolverObj:
                 if(jmp_flag):
                     printed = this_fucking_cell.value
                 else:
-                    printed = self.CheckCurrentCell(imaginary_cursor_x, imaginary_cursor_y)
+                    printed = self.CheckCurrentCell2(img_1, cell_x, cell_y)
                     if(printed == '0'):
                         new_cell = Cell()
                         new_cell.x, new_cell.y, new_cell.value, new_cell.isSafe = cell_x, cell_y, '0', True
@@ -276,11 +275,10 @@ class SolverObj:
                             new_unknown_cells_list.append(unk_cell)
                     
 
-                # print(big_string)
-                # print(chr(27) + "[2J")
-
-                # pyautogui.move(xOffset=16, yOffset=0)
                 imaginary_cursor_x += 16
+                # print(chr(27) + "[2J")
+                # print(big_string)
+                
 
             # pyautogui.move(xOffset=-(total_columns*16), yOffset=16)
             imaginary_cursor_x -= self.columns*16
@@ -290,6 +288,98 @@ class SolverObj:
         grid_obj.UnknownCells = list(set(new_unknown_cells_list))
 
         return grid_obj, big_string
+    
+
+
+    def CheckCurrentCell2(self, BigImg, x:None, y:None) -> str:
+        # img_1 = pyautogui.screenshot('sample_screenshot.png', region=(pyautogui.position().x-8, pyautogui.position().y-8, 16, 16))
+        # img_1 = pyautogui.screenshot(region=(x-8, y-8, 16, 16))
+        
+        for i in ['1', '2', '3', '4', '5', '6', 'F']:
+            try:
+                # scr = pyautogui.screenshot(f'zmao{random.randint(0, 4000)}.png', region=(int(x-8), int(y-8), 16, 16))
+                
+                
+                pos = pyautogui.locate(needleImage=f'{i}.png', haystackImage=BigImg, confidence=0.8, grayscale=True, region=(int(x*16), int(y*16), 16, 16))
+                if(pos):
+                    return i
+            except:
+                continue
+
+        try:
+            pos = pyautogui.locate(needleImage='unknown_cell.png', haystackImage=BigImg, confidence=0.7, grayscale=True, region=(int(x*16), int(y*16), 16, 16))
+            return 'U'
+        except:
+            try:
+                pos = pyautogui.locate(needleImage='0.png', haystackImage=BigImg, confidence=0.95, grayscale=True, region=(int(x*16), int(y*16), 16, 16))
+                return '0'
+            except:
+                return 'WTF'
+        
+        return 'WTF'
+
+        
+
+
+
+    
+
+    # def CheckPlayground(self, grid_obj:GridObj) -> list:
+    #     pyautogui.moveTo(self.first_cell_x, self.first_cell_y)
+
+    #     imaginary_cursor_x, imaginary_cursor_y = int(self.first_cell_x), int(self.first_cell_y)
+
+    #     big_string = ""
+
+    #     new_unknown_cells_list = []
+    #     for cell_y in range(self.rows):
+    #         for cell_x in range(self.columns):
+                
+    #             #searching for the cell in the safe (finished) cells, if it is already safe, then don't scan it again. 
+    #             jmp_flag = False
+    #             this_fucking_cell = None
+    #             for safecell in grid_obj.SafeCells:
+    #                 if safecell.x == cell_x and safecell.y == cell_y:
+    #                     this_fucking_cell = safecell
+    #                     jmp_flag = True
+    #                     break
+
+    #             if(jmp_flag):
+    #                 printed = this_fucking_cell.value
+    #             else:
+    #                 printed = self.CheckCurrentCell(imaginary_cursor_x, imaginary_cursor_y)
+    #                 if(printed == '0'):
+    #                     new_cell = Cell()
+    #                     new_cell.x, new_cell.y, new_cell.value, new_cell.isSafe = cell_x, cell_y, '0', True
+    #                     grid_obj.SafeCells.append(new_cell)
+                
+    #             if(printed != "WTF"):
+    #                 big_string += f"{printed}  "
+                
+                
+                
+    #             grid_obj.Grid[cell_y][cell_x].value = printed
+
+    #             if(printed == "U"):
+    #                 for unk_cell in grid_obj.UnknownCells:
+    #                     if unk_cell.x == cell_x and unk_cell.y == cell_y:
+    #                         new_unknown_cells_list.append(unk_cell)
+                    
+
+    #             # print(big_string)
+    #             # print(chr(27) + "[2J")
+
+    #             # pyautogui.move(xOffset=16, yOffset=0)
+    #             imaginary_cursor_x += 16
+
+    #         # pyautogui.move(xOffset=-(total_columns*16), yOffset=16)
+    #         imaginary_cursor_x -= self.columns*16
+    #         imaginary_cursor_y += 16
+    #         big_string += "\n\n"
+
+    #     grid_obj.UnknownCells = list(set(new_unknown_cells_list))
+
+    #     return grid_obj, big_string
     
 
     def Take_Action(self, cells_to_be_flagged: list, cells_to_be_popped:list, gridobj:GridObj,duration=0):
@@ -313,37 +403,35 @@ class SolverObj:
             if(not(action_result_bool)):
                 self.Randomized_Click(gridObj=gridobj, duration = duration)
 
-        # sleep(2)
-        
 
         
 
     
 
     
-    def CheckCurrentCell(self, x:None, y:None) -> str:
-        # img_1 = pyautogui.screenshot('sample_screenshot.png', region=(pyautogui.position().x-8, pyautogui.position().y-8, 16, 16))
-        img_1 = pyautogui.screenshot(region=(x-8, y-8, 16, 16))
+    # def CheckCurrentCell(self, x:None, y:None) -> str:
+    #     # img_1 = pyautogui.screenshot('sample_screenshot.png', region=(pyautogui.position().x-8, pyautogui.position().y-8, 16, 16))
+    #     img_1 = pyautogui.screenshot(region=(x-8, y-8, 16, 16))
         
-        for i in ['1', '2', '3', '4', '5', '6', 'F']:
-            try:
-                pos = pyautogui.locate(needleImage=f'{i}.png', haystackImage=img_1, confidence=0.8, grayscale=True)
-                if(pos):
-                    return i
-            except:
-                continue
+    #     for i in ['1', '2', '3', '4', '5', '6', 'F']:
+    #         try:
+    #             pos = pyautogui.locate(needleImage=f'{i}.png', haystackImage=img_1, confidence=0.8, grayscale=True)
+    #             if(pos):
+    #                 return i
+    #         except:
+    #             continue
 
-        try:
-            pos = pyautogui.locate(needleImage='unknown_cell.png', haystackImage=img_1, confidence=0.7, grayscale=True)
-            return 'U'
-        except:
-            try:
-                pos = pyautogui.locate(needleImage='0.png', haystackImage=img_1, confidence=0.95, grayscale=True)
-                return '0'
-            except:
-                return 'WTF'
+    #     try:
+    #         pos = pyautogui.locate(needleImage='unknown_cell.png', haystackImage=img_1, confidence=0.7, grayscale=True)
+    #         return 'U'
+    #     except:
+    #         try:
+    #             pos = pyautogui.locate(needleImage='0.png', haystackImage=img_1, confidence=0.95, grayscale=True)
+    #             return '0'
+    #         except:
+    #             return 'WTF'
         
-        return 'WTF'
+    #     return 'WTF'
 
 
     def Randomized_Click(self, gridObj: GridObj, duration = 0) -> None:
