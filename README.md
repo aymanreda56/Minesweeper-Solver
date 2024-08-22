@@ -1,9 +1,12 @@
-# Minesweeper-Solver
+# Minesweeper-Solver :bomb:
 
-![logo](https://github.com/user-attachments/assets/ba280c8a-6353-4743-a0be-7dc3aea7a167)
+<p align="center">
+  <img src="https://github.com/aymanreda56/Minesweeper-Solver/blob/main/logo.png" width="350" title="Minesweeper Solver">
+</p>
 
 
-## An attempt to automate the gameplay of the famous game, Minesweeper. using pyautogui and a bunch of algorithms.
+
+## An attempt to automate the gameplay of the famous game, Minesweeper. using pyautogui and a bunch of algorithms 💅
 
 This is just an approach to test my ability to automate simple retro games, and because I am weirdly addicted to minesweeper. this program does the following:-
 * Scans the game window for all cells
@@ -16,7 +19,7 @@ This is just an approach to test my ability to automate simple retro games, and 
 
 Video demo here
 
-## How to install and use
+## How to install and use 🚀
 1. Clone this repo
 2. ```pip install -r requirements.txt```
 3. ```py Solver.py --width <your_width_here> --height <your_height_here> --bombs <your_number_of_bombs>```
@@ -26,7 +29,7 @@ Video demo here
 note: the ```--bombs``` argument can accept the exact number of bombs, or any upper bound of the bombs that you are sure the actual number of bombs will never exceed it.
 if you entered smaller number of bombs than the actual number, the autosolver will just halt midgame 🤷‍♂️
 
-## For other fellow developers
+## For other fellow developers 👽
 here is a simple breakdown of what is really done behind the scenes, there are 4 major modules:
 
 ## 1. Cell Class
@@ -57,3 +60,7 @@ As long as the game is not won or lost:-
 2) Register the scanned grid into a software grid (or update the existing software grid)
 3) Find the next actions
 4) Do the actions
+
+
+## Suggestions and Improvements 😇
+This repo is open for suggestions and improvements, if you have any comment, suggestion, critic, update or anything you want to reach this repo, feel free to request a pull or contact me directly via my email: ayman.mohamed00@eng-st.cu.edu.eg
