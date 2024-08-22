@@ -92,9 +92,9 @@ class GridObj:
 
     def CheckCell(self, cell:Cell):
 
-        print(f'Checking Cell {cell}')
+        # print(f'Checking Cell {cell}')
         allNeighbors = self.GetNeighbors(cell)
-        print(f'Checking Cell {cell} with neighbors: {len(allNeighbors)}')
+        # print(f'Checking Cell {cell} with neighbors: {len(allNeighbors)}')
         if(cell.value in ["1", "2", "3", "4", "5", "6"]):
             if(len(allNeighbors) == int(cell.value)):
 
@@ -465,7 +465,7 @@ class SolverObj:
             if target_cell.x == f.x and target_cell.y == f.y:
                 this_fucking_cell = f
                 if(f.isSafe == True):
-                    print(f'already Popped ({target_cell.x}, {target_cell.y})')
+                    # print(f'already Popped ({target_cell.x}, {target_cell.y})')
                     return 0
 
         pyautogui.moveTo(self.first_cell_x, self.first_cell_y, duration=duration)
@@ -492,7 +492,7 @@ class SolverObj:
             if target_cell.x == f.x and target_cell.y == f.y:
                 this_fucking_cell = f
                 if(f.value == 'F'):
-                    print('already flagged')
+                    # print('already flagged')
                     return 0
 
         
