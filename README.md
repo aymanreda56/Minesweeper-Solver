@@ -17,7 +17,7 @@ This is just an approach to test my ability to automate simple retro games, and 
 * Solves the tie and ambiguity issues
 * Repeats until winning or losing
 
-Video demo here
+[![Watch the video](https://img.youtube.com/vi/Jsr-WL50e7s/hqdefault.jpg)](https://youtu.be/Jsr-WL50e7s)
 
 ## How to install and use 🚀
 1. Clone this repo
