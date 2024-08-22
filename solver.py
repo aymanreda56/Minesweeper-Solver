@@ -27,6 +27,8 @@ while(Solver.WinCondition(gridObj=newgrid, number_of_Bombs_in_game=99)):
     new_flags, new_pops = newgrid.CheckAllPlayground()
     Solver.Take_Action(new_flags, new_pops, gridobj=newgrid, duration=0)
 
+Solver.PopRemainingUnknownCells(gridObj=newgrid, duration=0)
+
 
 winCond = False
 loseCond = False

@@ -247,15 +247,26 @@ class SolverObj:
                 
                 #searching for the cell in the safe (finished) cells, if it is already safe, then don't scan it again. 
                 jmp_flag = False
+                this_fucking_cell = None
                 for safecell in grid_obj.SafeCells:
                     if safecell.x == cell_x and safecell.y == cell_y:
+                        this_fucking_cell = safecell
                         jmp_flag = True
-                if(jmp_flag): continue
+                        break
 
-                printed = self.CheckCurrentCell(imaginary_cursor_x, imaginary_cursor_y)
+                if(jmp_flag):
+                    printed = this_fucking_cell.value
+                else:
+                    printed = self.CheckCurrentCell(imaginary_cursor_x, imaginary_cursor_y)
+                    if(printed == '0'):
+                        new_cell = Cell()
+                        new_cell.x, new_cell.y, new_cell.value, new_cell.isSafe = cell_x, cell_y, '0', True
+                        grid_obj.SafeCells.append(new_cell)
                 
                 if(printed != "WTF"):
                     big_string += f"{printed}  "
+                
+                
                 
                 grid_obj.Grid[cell_y][cell_x].value = printed
 
@@ -336,7 +347,7 @@ class SolverObj:
 
 
     def Randomized_Click(self, gridObj: GridObj, duration = 0) -> None:
-        random_idx = random.randint(0, len(gridObj.UnknownCells))
+        random_idx = random.randint(0, len(gridObj.UnknownCells) - 1)
 
         random_x = gridObj.UnknownCells[random_idx].x
         random_y = gridObj.UnknownCells[random_idx].y
@@ -345,6 +356,17 @@ class SolverObj:
 
         pyautogui.move(random_x*16, random_y*16)
         pyautogui.click()
+
+
+
+    def PopRemainingUnknownCells(self, gridObj:GridObj, duration=0):
+        pyautogui.moveTo(self.first_cell_x, self.first_cell_y, duration=duration)
+
+        for rem_cell in gridObj.UnknownCells:
+            pyautogui.move(rem_cell.x*16, rem_cell.y*16)
+            pyautogui.click()
+    
+
 
 
     def PopCell (self, target_cell:Cell, gridObj:GridObj, duration=0) -> int:
